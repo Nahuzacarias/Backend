@@ -8,36 +8,40 @@ export class ProductManager {
    }
 
 
-   addProduct = async (title, description, price, thumbnail, code, stock) => {
-      
+   addProduct = async (agregarprod) => {
+
       let validateCode = this.product.find((codi) => codi.code == code);
       if (validateCode) {
          console.log("Código repetido, favor de ingresar otro");
       } else {
-         
-         const prod = await this.getProducts();
-         
-         
-         let producto = {
-            title: title,
-            description: description,
-            price: price,
-            thumbnail: thumbnail,
-            code: code,
-            stock: stock,
 
-            
+         const prod = await this.getProducts();
+
+
+         let producto = {
+            title: agregarprod.title,
+            description: agregarprod.description,
+            price: agregarprod.price,
+            thumbnail: agregarprod.thumbnail,
+            code: agregarprod.code,
+            stock: agregarprod.stock,
+            status: agregarprod.status,
+            category: agregarprod.category,
+            id: null,
+
+
          };
 
          if (prod.length === 0) {
             producto.id = 1;
-        } else {
+         } else {
             producto.id = prod[prod.length - 1].id + 1;
-        }
+         }
          prod.push(producto);
 
          try {
-           await fs.promises.writeFile(this.path, JSON.stringify(prod, null, "\t"));
+            await fs.promises.writeFile(this.path, JSON.stringify(prod, null, "\t"));
+            return producto
          } catch (error) {
             console.error("Error al escribir en el archivo:", error);
          }
@@ -73,30 +77,32 @@ export class ProductManager {
       }
 
    }
-   updateProduct = async (id, title, description, price, thumbnail, code, stock) => {
+   updateProduct = async (id, title, description, price, thumbnail, code, stock,status,category) => {
       try {
-          let producto = {
-              title: title,
-              description: description,
-              price: price,
-              thumbnail: thumbnail,
-              code: code,
-              stock: stock,
-              id: id
-          };
-          const prod = await this.getProducts();
-          const updatep= prod.findIndex(prod=>prod.id==id)
-          if(updatep !== -1){
+         let producto = {
+            title: title,
+            description: description,
+            price: price,
+            thumbnail: thumbnail,
+            code: code,
+            stock: stock,
+            status: status,
+            category:category,
+            id: id
+         };
+         const prod = await this.getProducts();
+         const updatep = prod.findIndex(prod => prod.id == id)
+         if (updatep !== -1) {
             prod[updatep] = producto;
 
             await fs.promises.writeFile(this.path, JSON.stringify(prod, null, "\t"))
-          }
-else{ console.log("No se ha modificado el producto")}
          }
-          catch (error) {
-            console.log(error)
-         }
+         else { console.log("No se ha modificado el producto") }
       }
+      catch (error) {
+         console.log(error)
+      }
+   }
 
    deleteProduct = async (id) => {
       try {
@@ -119,10 +125,10 @@ else{ console.log("No se ha modificado el producto")}
    };
 }
 
-const productManager = new ProductManager()
+/*const productManager = new ProductManager()
 
 productManager.addProduct('RTX3050', "Placa de video con RTX", 1000, "img", "01", 5)
 productManager.addProduct("RTC3060", "Placa de video con RTX", 1200, "img", "02", 5)
-productManager.addProduct("RTC3070", "Placa de video con RTX", 1400, "img", "03", 5)
+productManager.addProduct("RTC3070", "Placa de video con RTX", 1400, "img", "03", 5)*/
 
 
