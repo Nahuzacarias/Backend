@@ -2,19 +2,14 @@ import {Router} from 'express'
 import {CarritoManager} from "../../CarritoManager.js"
 
 const router = Router()
-const prod = new CarritoManager('../../ProductManager.js')
+const carro = new CarritoManager('../../ProductManager.js')
 
-router.get('/carts',async(request,response)=>{
+router.post('/',async(request,response)=>{
 
-    const prod2 = await prod.getProducts();
-    const id =  request.params.pid
-    const product = await prod2.find(product=>product.id==id)
+    const carro = await carro.addCarrito();
+    const id =  request.body
+
+      return  response.send(carro)
     
-    if(!product){
-    response.send({error: 'el ID solicitado no existe'})
-    }else{
-
-        response.send(product)
-    }
 
 })

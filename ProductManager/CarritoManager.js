@@ -1,110 +1,45 @@
-import fs from "fs";
+import fs from 'fs'
 
+export class ProductManager {
+   constructor() {
+      this.path = "CarritoManager.json"
+      this.Carrito = [];
 
-const path = "ProductManager\CarritoManager.json"
+   } 
 
-export default class CarritosManager {
-
-    addProductInCart = async (idCart, idProd) => {
-
-        const carritos = await this.getCarritos();
-        const carritosFiltrados = carritos.find((cart) => cart.id == idCart);
-
-
-        let productosInCart = carritosFiltrados.products;
-        const productoIndex = productosInCart.findIndex((u) => u.id == idProd);
-
-        if (productoIndex !== -1) {
-
-            productosInCart[productoIndex].quantity =
-                productosInCart[productoIndex].quantity + 1
-
-
-        } else {
-
-            let producto = {
-
-                id: idProd,
-                quantity: 1
-            };
-
-            productosInCart.push(producto);
-            console.log(productosInCart);
-
-        }
-        await fs.promises.writeFile(path, JSON.stringify(carritos, null, "\t"));
-        return carritosFiltrados;
-
+   getCarrito = async () => {
+    try {
+       const data = await fs.promises.readFile(this.path, "utf-8");
+       if (data) {
+          const prod = JSON.parse(data);
+          return prod;
+       } else {
+          return [];
+       }
+    } catch (error) {
+       console.log(error);
     }
+ }};
 
+ addCarrito = async () => {
 
-    getCarritos = async () => {
+       const carro = await this.getCarrito();
+ 
 
+       if (carro.length === 0) {
+          carro.id = 1;
+       } else {
+          carro.id = carro[carro.length - 1].id + 1;
+       }
+       prod.push(carro);
 
-        if (fs.existsSync(path)) {
-
-            const data = await fs.promises.readFile(path, "utf-8")
-            const carritos = JSON.parse(data)
-            return carritos;
-        }
-
-        else { return [] 
-        }
-
+       try {
+          await fs.promises.writeFile(this.path, JSON.stringify(prod, null, "\t"));
+          return carro
+       } catch (error) {
+          console.error("Error al escribir en el archivo:", error);
+       }
     }
-    getCarrito = async (idCart) => {
-
-        const carritos = await this.getCarritos();
-        console.log(carritos);
-        const carrito = carritos.find((cart) => cart.id == idCart);
-    
-    }
-    addCarrito = async () => {
-
-        const carritos = await this.getCarritos()
-            ;
-        let carrito = {
-    
-            products: [],
-        };
-    
-    
-        if (carritos.length ===0){
-    
-    carrito.id = 1;
-    
-        } else{
-    
-    carrito.id = carritos[carritos.length - 1].id +1 ;
-    
-        }
-    
-    carritos.push(carrito);
-    
-    
-    await fs.promises.writeFiles(path,JSON.stringify(carritos,null,"\t"));
-    return carrito
-    }
-    getCarritoById= async (id_producto) => {
-
-        const products = await this.getCarritos();
-        
-        let producto = products.find((producto)=> producto.id === id_producto)
-        
-        
-        if(producto){
-        
-        return producto;
-        
-        
-        }else{ return console.log ("no existe")
-        
-        
-        }
-        
-        }
-};
-
 
 
 
