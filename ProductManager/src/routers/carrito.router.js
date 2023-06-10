@@ -2,14 +2,32 @@ import {Router} from 'express'
 import {CarritoManager} from "../../CarritoManager.js"
 
 const router = Router()
-const carro = new CarritoManager('../../ProductManager.js')
+const carro = new CarritoManager('../../CarritoManager.js')
 
 router.post('/',async(request,response)=>{
 
-    const carro = await carro.addCarrito();
-    const id =  request.body
-
-      return  response.send(carro)
-    
-
+  const agregarprod = request.body
+    const id = await carro.addCarrito(agregarprod)
+    console.log(id)
+    response.json({
+      status: true,
+      data: id,
+    })
 })
+
+router.get('/:cid',async(request,response)=>{
+
+  const prod = await carro.getCarrito()
+  const id = request.params.cid
+  const product = await prod.find(item=>item.id===id)
+  console.log(id)
+  return response.json({
+    status:true,
+    data:product,
+    
+  })
+  
+})
+
+
+export default router

@@ -17,6 +17,8 @@ export class ProductManager {
 
          const prod = await this.getProducts();
 
+if(!agregarprod.title||!agregarprod.description|| agregarprod.price|| agregarprod.thumbnail ||agregarprod.code|| agregarprod.stock|| agregarprod.status ||agregarprod.category){
+}else{ return console.error("Se requieren completar todos los datos") }
 
          let producto = {
             title: agregarprod.title,
@@ -124,11 +126,5 @@ export class ProductManager {
 
    };
 }
-
-/*const productManager = new ProductManager()
-
-productManager.addProduct('RTX3050', "Placa de video con RTX", 1000, "img", "01", 5)
-productManager.addProduct("RTC3060", "Placa de video con RTX", 1200, "img", "02", 5)
-productManager.addProduct("RTC3070", "Placa de video con RTX", 1400, "img", "03", 5)*/
 
 
