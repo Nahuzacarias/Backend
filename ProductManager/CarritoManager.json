@@ -1,46 +1,19 @@
 [
 	{
-		"quantity": 1,
+		"products": [],
 		"id": 1
 	},
 	{
-		"quantity": [],
+		"products": [
+			{
+				"product": 1,
+				"quantity": 6
+			}
+		],
 		"id": 2
 	},
 	{
-		"quantity": [],
+		"products": [],
 		"id": 3
-	},
-	{
-		"quantity": [],
-		"id": 4
-	},
-	{
-		"quantity": [],
-		"id": 5
-	},
-	{
-		"quantity": [],
-		"id": 6
-	},
-	{
-		"quantity": [],
-		"id": 7
-	},
-	{
-		"quantity": [],
-		"id": 8
-	},
-	{
-		"quantity": [],
-		"id": 9
-	},
-	{
-		"quantity": [],
-		"id": 10
-	},
-	{
-		"quantity": [],
-		"id": 11
 	}
 ]

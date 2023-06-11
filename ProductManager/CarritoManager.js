@@ -46,42 +46,29 @@ export class CarritoManager {
    }
 }
 
-addProductInCart = async (idCart, idProd) => {
+addproducttocart=async(productId,cartId,quantity)=>{
+   try{
+      const carts = await this.getCarrito()
+      const cartIndex = carts.findIndex(elem => elem.id == cartId)
+      if (cartIndex == -1) return 'El Carrito no existe'
+      const products = carts[cartIndex].products
+      const productIndex = products.findIndex(elem => elem.product == productId)
+      if (productIndex == -1) {
+          products.push({product: parseInt(productId), quantity: quantity})
+      } else {
+          products[productIndex].quantity += quantity
+      }
+      await fs.promises.writeFile(this.path, JSON.stringify(carts, null,'\t'))
+      return (carts)
+  }
+catch{
 
-   const carritos = await this.getCarrito();
-   const carritosFiltrados = carritos.find((cart) => cart.id == idCart);
- 
- 
-   let productosInCart = carritosFiltrados.products;
-   const productoIndex = productosInCart.findIndex((u) => u.id == idProd);
- 
-   if (productoIndex !== -1) {
- 
-       productosInCart[productoIndex].quantity =
-           productosInCart[productoIndex].quantity + 1
- 
- 
-   } else {
- 
-       let producto = {
- 
-           id: idProd,
-           quantity: 1
-       };
- 
-       productosInCart.push(producto);
-       console.log(productosInCart);
- 
-   }
-   await fs.promises.writeFile(path, JSON.stringify(carritos, null, "\t"));
-   return response.json({
-     status:true,
-     data:carritosFiltrados,
-     
-   })
- 
- }
-};
+   console.error("No se puede agregar al carrito")
+}
+}
+
+}
+
 
 
 

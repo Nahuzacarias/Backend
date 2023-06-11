@@ -17,36 +17,37 @@ export class ProductManager {
 
          const prod = await this.getProducts();
 
-if(!agregarprod.title||!agregarprod.description|| agregarprod.price|| agregarprod.thumbnail ||agregarprod.code|| agregarprod.stock|| agregarprod.status ||agregarprod.category){
-}else{ return console.error("Se requieren completar todos los datos") }
+if(agregarprod.title & agregarprod.description ){
 
-         let producto = {
-            title: agregarprod.title,
-            description: agregarprod.description,
-            price: agregarprod.price,
-            thumbnail: agregarprod.thumbnail,
-            code: agregarprod.code,
-            stock: agregarprod.stock,
-            status: agregarprod.status,
-            category: agregarprod.category,
-            id: null,
+   let producto = {
+      title: agregarprod.title,
+      description: agregarprod.description,
+      price: agregarprod.price,
+      thumbnail: agregarprod.thumbnail,
+      code: agregarprod.code,
+      stock: agregarprod.stock,
+      status: agregarprod.status,
+      category: agregarprod.category,
+      id: null,
 
 
-         };
+   };
 
-         if (prod.length === 0) {
-            producto.id = 1;
-         } else {
-            producto.id = prod[prod.length - 1].id + 1;
-         }
-         prod.push(producto);
+   if (prod.length === 0) {
+      producto.id = 1;
+   } else {
+      producto.id = prod[prod.length - 1].id + 1;
+   }
+   prod.push(producto);
+   try {
+      await fs.promises.writeFile(this.path, JSON.stringify(prod, null, "\t"));
+      return producto
+   } catch (error) {
+      console.error("Error al escribir en el archivo:", error);
+   }
 
-         try {
-            await fs.promises.writeFile(this.path, JSON.stringify(prod, null, "\t"));
-            return producto
-         } catch (error) {
-            console.error("Error al escribir en el archivo:", error);
-         }
+}else {return "por favor,completar todos los datos"}
+         
       }
    };
 
@@ -126,5 +127,3 @@ if(!agregarprod.title||!agregarprod.description|| agregarprod.price|| agregarpro
 
    };
 }
-
-

@@ -46,5 +46,56 @@
 		"status": false,
 		"category": "algo",
 		"id": 6
+	},
+	{
+		"title": "producto asd",
+		"description": "Este es un producto asd",
+		"price": 200,
+		"thumbnail": "Sin imagen",
+		"code": "abc12312",
+		"stock": 25,
+		"status": false,
+		"category": "algo",
+		"id": 7
+	},
+	{
+		"title": "producto asd",
+		"price": 200,
+		"thumbnail": "Sin imagen",
+		"code": "abc12312",
+		"stock": 25,
+		"status": false,
+		"category": "algo",
+		"id": 8
+	},
+	{
+		"title": "producto asd",
+		"price": 200,
+		"thumbnail": "Sin imagen",
+		"code": "abc12312",
+		"stock": 25,
+		"status": false,
+		"category": "algo",
+		"id": 9
+	},
+	{
+		"title": "producto asd",
+		"price": 200,
+		"thumbnail": "Sin imagen",
+		"code": "abc12312",
+		"stock": 25,
+		"status": false,
+		"category": "algo",
+		"id": 10
+	},
+	{
+		"title": "producto asd",
+		"price": 200,
+		"thumbnail": "Sin imagen",
+		"code": "abc12312",
+		"stock": 25,
+		"status": false,
+		"category": "algo",
+		"id": 11
 	}
 ]
